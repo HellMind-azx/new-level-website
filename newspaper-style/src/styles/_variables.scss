@@ -1,0 +1,97 @@
+// Colors
+$primary-color: #2563eb;
+$secondary-color: #4f46e5;
+$accent-color: #8b5cf6;
+$background-color: #ffffff;
+$text-color: #1f2937;
+$error-color: #ef4444;
+$success-color: #22c55e;
+
+// Typography
+$font-family-primary: 'Inter', sans-serif;
+$font-family-secondary: 'Poppins', sans-serif;
+
+// Breakpoints
+$breakpoints: (
+  'sm': 640px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1280px,
+  '2xl': 1536px
+);
+
+// Spacing
+$spacing-unit: 0.25rem;
+$spacing-scale: (
+  1: $spacing-unit,
+  2: $spacing-unit * 2,
+  3: $spacing-unit * 3,
+  4: $spacing-unit * 4,
+  5: $spacing-unit * 5,
+  6: $spacing-unit * 6,
+  8: $spacing-unit * 8,
+  10: $spacing-unit * 10,
+  12: $spacing-unit * 12,
+  16: $spacing-unit * 16
+);
+
+// Z-index
+$z-index: (
+  'modal': 1000,
+  'overlay': 900,
+  'dropdown': 800,
+  'header': 700,
+  'footer': 600
+);
+:root {
+  --color-primary: #1a1a1a;
+  --color-secondary: #ffffff;
+  --color-accent: #c41e3a;
+  --color-gold: #d4af37;
+  --color-cream: #f5f5f0;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Helvetica Neue', Arial, sans-serif;
+  --grid-gap: 2rem;
+}
+:root {
+  // Основная палитра
+  --color-primary: #0f172a;
+  --color-secondary: #f8fafc;
+  --color-accent: #dc2626;
+  --color-gold: #ca8a04;
+  --color-cream: #fafaf9;
+  
+  // Дополнительные цвета
+  --color-dark-accent: #991b1b;
+  --color-light-accent: #fecaca;
+  --color-dark-gold: #854d0e;
+  --color-light-gold: #fef9c3;
+  
+  :root {
+    --color-bg: #0a0b1e;
+    --color-primary: #00f0ff;
+    --color-secondary: #ffffff;
+    --color-accent: #ff00c8;
+    --color-dark: #131525;
+    --color-glow: rgba(0, 240, 255, 0.2);
+    --font-future: 'Space Grotesk', sans-serif;
+  }
+  // Типографика
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  // Размеры и отступы
+  --grid-gap: clamp(1rem, 2vw, 2rem);
+  --container-padding: clamp(1rem, 5vw, 3rem);
+  
+  // Эффекты
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+  
+  // Анимации
+  --transition-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -1,0 +1,40 @@
+.codeContainer {
+    background: radial-gradient(circle at 20% 20%, #0f0f0f, #010101);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+    transform-style: preserve-3d;
+  }
+  
+  .terminal {
+    font-family: 'Fira Code', 'Courier New', monospace;
+    color: #00f0ff;
+    font-size: 1rem;
+    line-height: 1.6;
+    position: relative;
+  }
+  
+  .codeLine {
+    white-space: pre-wrap;
+    opacity: 0; // для GSAP
+    transform: translateZ(0);
+  }
+  
+  .cursor {
+    width: 10px;
+    height: 18px;
+    background: #00f0ff;
+    display: inline-block;
+    animation: blink 1s step-start infinite;
+    margin-left: 5px;
+    vertical-align: bottom;
+  }
+  
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  

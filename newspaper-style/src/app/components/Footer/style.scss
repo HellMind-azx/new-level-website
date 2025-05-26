@@ -1,0 +1,121 @@
+.footer {
+    position: relative;
+    padding: 6rem 2rem 3rem;
+    background: #000;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    overflow: hidden;
+    z-index: 1;
+  
+    .footer__svg-grid {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+  
+    .footer__glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.18;
+      z-index: 0;
+  
+      &.glow1 {
+        width: 300px;
+        height: 300px;
+        background: #0fffc1;
+        top: -50px;
+        left: -50px;
+      }
+  
+      &.glow2 {
+        width: 400px;
+        height: 400px;
+        background: #ff00cc;
+        bottom: -150px;
+        right: -100px;
+      }
+    }
+  
+    .footer__container {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      gap: 3rem;
+  
+      @media (min-width: 768px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  
+    .footer__title {
+      font-size: 2rem;
+      color: #0fffc1;
+      text-shadow: 0 0 8px #0fffc1, 0 0 12px #0fffc1;
+      margin-bottom: 1rem;
+    }
+  
+    .footer__text {
+      color: #ccc;
+      line-height: 1.5;
+      max-width: 300px;
+    }
+  
+    .footer__subtitle {
+      font-size: 0.9rem;
+      color: #aaa;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+  
+    .footer__links {
+      list-style: none;
+      padding: 0;
+  
+      li {
+        margin-bottom: 0.5rem;
+  
+        a {
+          color: #888;
+          text-decoration: none;
+          transition: color 0.3s;
+  
+          &:hover {
+            color: #0fffc1;
+          }
+        }
+      }
+    }
+  
+    .footer__socials {
+      display: flex;
+      gap: 1rem;
+      font-size: 1.3rem;
+  
+      a {
+        color: #888;
+        transition: all 0.4s ease;
+  
+        &:hover {
+          color: #0fffc1;
+          filter: drop-shadow(0 0 6px #0fffc1);
+          transform: scale(1.2);
+        }
+      }
+    }
+  
+    .footer__bottom {
+      margin-top: 4rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #666;
+      border-top: 1px solid #222;
+      padding-top: 1.5rem;
+      z-index: 2;
+      position: relative;
+    }
+  }
+  

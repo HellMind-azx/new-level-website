@@ -1,0 +1,10 @@
+{
+    "nav": {
+        "home": "Bosh sahifa",
+        "about": "Biz haqimizda",
+        "benefits": "Afzalliklar",
+        "projects": "Loyihalar",
+        "contacts": "Aloqa",
+        "login": "Kirish"
+    }
+}
