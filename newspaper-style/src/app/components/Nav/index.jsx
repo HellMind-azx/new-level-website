@@ -1,105 +1,93 @@
-'use client';
-
-import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import styles from './Nav.module.scss';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
-import { useRouter } from 'next/navigation';
-import { onAuthStateChanged } from 'firebase/auth';
-import { removeSessionCookie } from '@/utils/cookies';
-import { auth } from '@/firebase/config';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import i18n from '@/i18n';
+import { useTranslation } from 'react-i18next';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import { IoLanguage } from 'react-icons/io5';
+import styles from './Nav.module.scss';
+import '@/i18n.js';
 
-export default function Nav() {
-  const navRef = useRef(null);
-  const router = useRouter();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const { t } = useTranslation();
-  const [currentLang, setCurrentLang] = useState(i18n.language || 'ru');
+const Nav = () => {
+  const { t, i18n } = useTranslation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLangDropdown, setIsLangDropdown] = useState(false);
+  const [currentLang, setCurrentLang] = useState('en');
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setIsAuthenticated(!!user);
-    });
-  
-    return () => unsubscribe();
-  }, []);
-  
-  useEffect(() => {
-    gsap.fromTo(
-      navRef.current,
-      { y: -60, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
-    );
-  }, []);
+    setCurrentLang(i18n.language);
+  }, [i18n.language]);
 
-  const handleLangChange = (newLang) => {
-    i18n.changeLanguage(newLang).then(() => {
-      setCurrentLang(newLang);
-      setDropdownOpen(false);
-    });
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+    if (!isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
   };
 
-  return (
-    <nav className={styles.nav} ref={navRef}>
-      <div className={styles.logo}>MiracleX</div>
+  const toggleLang = () => {
+    setIsLangDropdown(!isLangDropdown);
+  };
 
-      {/* Desktop Links */}
+  const changeLang = (lang) => {
+    i18n.changeLanguage(lang);
+    setCurrentLang(lang);
+    setIsLangDropdown(false);
+  };
+
+  const menuItems = [
+    { href: '/', label: t('nav.home') },
+    { href: '#about', label: t('nav.about') },
+    { href: '#benefits', label: t('nav.benefits') },
+    { href: '/projects', label: t('nav.projects') },
+    { href: '/contact', label: t('nav.contact') },
+    { href: '/auth/profile', label: t('nav.profile') }
+  ];
+
+  return (
+    <nav className={styles.nav}>
+      <Link href="/" className={styles.logo}>
+        DevPortal
+      </Link>
+
       <ul className={styles.links}>
-        <li><Link href="/">{t('nav.home')}</Link></li>
-        <li><Link href="#about">{t('nav.about')}</Link></li>
-        <li><Link href="#benefits">{t('nav.benefits')}</Link></li>
-        <li><Link href="/projects">{t('nav.projects')}</Link></li>
-        <li><Link href="/contacts">{t('nav.contacts')}</Link></li>
-        <li><Link href="/auth/login">{t('nav.login')}</Link></li>
+        {menuItems.map((item) => (
+          <li key={item.href}>
+            <Link href={item.href}>{item.label}</Link>
+          </li>
+        ))}
       </ul>
 
-      {/* Language dropdown */}
-      <div className={styles.language} onClick={() => setDropdownOpen(!dropdownOpen)}>
-        <span>{currentLang.toUpperCase()}</span>
-        <ChevronDown size={16} />
-        {dropdownOpen && (
-          <ul className={styles.dropdown}>
-            {['ru', 'en', 'uz'].map((lng) => (
-              <li key={lng} onClick={() => handleLangChange(lng)}>
-                {lng.toUpperCase()}
-              </li>
-            ))}
-          </ul>
-        )}
+      <div className={styles.language} onClick={toggleLang}>
+        <IoLanguage />
+        <span>{currentLang}</span>
+        <ul className={`${styles.dropdown} ${isLangDropdown ? styles.active : ''}`}>
+          <li onClick={() => changeLang('en')}>English</li>
+          <li onClick={() => changeLang('ru')}>Русский</li>
+        </ul>
       </div>
 
-      {/* Burger */}
-      <button
-        className={styles.burger}
-        onClick={() => setMobileOpen(!mobileOpen)}
-        aria-label="Toggle menu"
-      >
-        {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+      <button className={styles.burger} onClick={toggleMenu}>
+        {isMenuOpen ? <FaTimes /> : <FaBars />}
       </button>
 
-      {/* Mobile Menu */}
-      <div className={`${styles.mobileMenu} ${mobileOpen ? styles.open : ''}`}>
+      <div className={`${styles.mobileMenu} ${isMenuOpen ? styles.open : ''}`}>
         <ul>
-          <li><Link href="/" onClick={() => setMobileOpen(false)}>{t('nav.home')}</Link></li>
-          <li><Link href="#about" onClick={() => setMobileOpen(false)}>{t('nav.about')}</Link></li>
-          <li><Link href="#benefits" onClick={() => setMobileOpen(false)}>{t('nav.benefits')}</Link></li>
-          <li><Link href="/projects" onClick={() => setMobileOpen(false)}>{t('nav.projects')}</Link></li>
-          <li><Link href="/contacts" onClick={() => setMobileOpen(false)}>{t('nav.contacts')}</Link></li>
-          <li><Link href="/auht/login" onClick={() => setMobileOpen(false)}>{t('nav.login')}</Link></li>
+          {menuItems.map((item) => (
+            <li key={item.href}>
+              <Link href={item.href} onClick={toggleMenu}>
+                {item.label}
+              </Link>
+            </li>
+          ))}
         </ul>
         <div className={styles.mobileLang}>
-          {['ru', 'en', 'uz'].map((lng) => (
-            <button key={lng} onClick={() => handleLangChange(lng)}>
-              {lng.toUpperCase()}
-            </button>
-          ))}
+          <button onClick={() => { changeLang('en'); toggleMenu(); }}>EN</button>
+          <button onClick={() => { changeLang('ru'); toggleMenu(); }}>RU</button>
         </div>
       </div>
     </nav>
   );
-}
+};
+
+export default Nav;

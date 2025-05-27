@@ -12,7 +12,7 @@ const protectedRoutes = [
     { title: "About", path: "#about" },
     { title: "Projects", path: "/projects" },
     { title: "Contacts", path: "/contacts" },
-    { title: "Profile", path: "/profile", id: "profile" },
+    { title: "Profile", path: "/auth/profile", id: "profile" },
 ]
 
 export function middleware(request) {

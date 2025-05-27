@@ -8,7 +8,7 @@ const projects = [
   {
     title: "AI-помощник",
     description: "Web-приложение с OpenAI API и генерацией кода.",
-    image: "/images/project1.jpg",
+    image: "/imgages/aihelper.jpg",
     demo: "#",
     code: "#",
   },

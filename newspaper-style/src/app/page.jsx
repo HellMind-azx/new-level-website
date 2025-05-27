@@ -1,6 +1,7 @@
 import Hero from './components/Hero';
 import About from './components/About';
 import Benefits from './components/Benefits';
+import './style.scss'
 
 export default function Home() {
   return (
@@ -8,5 +9,6 @@ export default function Home() {
       <Hero />
       <About />
       <Benefits />
-    </div>)
+    </div>
+    )
 }
