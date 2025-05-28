@@ -1,53 +1,34 @@
+'use client'
+
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { IoLanguage } from 'react-icons/io5';
 import styles from './Nav.module.scss';
-import '@/i18n.js';
 
 const Nav = () => {
-  const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLangDropdown, setIsLangDropdown] = useState(false);
-  const [currentLang, setCurrentLang] = useState('en');
 
   useEffect(() => {
-    setCurrentLang(i18n.language);
-  }, [i18n.language]);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    if (!isMenuOpen) {
+    if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-  };
-
-  const toggleLang = () => {
-    setIsLangDropdown(!isLangDropdown);
-  };
-
-  const changeLang = (lang) => {
-    i18n.changeLanguage(lang);
-    setCurrentLang(lang);
-    setIsLangDropdown(false);
-  };
+  }, [isMenuOpen]);
 
   const menuItems = [
-    { href: '/', label: t('nav.home') },
-    { href: '#about', label: t('nav.about') },
-    { href: '#benefits', label: t('nav.benefits') },
-    { href: '/projects', label: t('nav.projects') },
-    { href: '/contact', label: t('nav.contact') },
-    { href: '/auth/profile', label: t('nav.profile') }
+    { href: '/', label: 'Главная' },
+    { href: '#about', label: 'О нас'  },
+    { href: '#benefits', label: 'Преимущества'  },
+    { href: '/projects', label: 'Проекты' },
+    { href: '/contacts', label:  'Контакты'},
+    { href: '/auth/login', label: 'Войти' },
   ];
 
   return (
     <nav className={styles.nav}>
       <Link href="/" className={styles.logo}>
-        DevPortal
+        MiracelX
       </Link>
 
       <ul className={styles.links}>
@@ -58,16 +39,11 @@ const Nav = () => {
         ))}
       </ul>
 
-      <div className={styles.language} onClick={toggleLang}>
-        <IoLanguage />
-        <span>{currentLang}</span>
-        <ul className={`${styles.dropdown} ${isLangDropdown ? styles.active : ''}`}>
-          <li onClick={() => changeLang('en')}>English</li>
-          <li onClick={() => changeLang('ru')}>Русский</li>
-        </ul>
-      </div>
-
-      <button className={styles.burger} onClick={toggleMenu}>
+      <button 
+        className={styles.burger} 
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        aria-label="Toggle menu"
+      >
         {isMenuOpen ? <FaTimes /> : <FaBars />}
       </button>
 
@@ -75,16 +51,15 @@ const Nav = () => {
         <ul>
           {menuItems.map((item) => (
             <li key={item.href}>
-              <Link href={item.href} onClick={toggleMenu}>
+              <Link 
+                href={item.href} 
+                onClick={() => setIsMenuOpen(false)}
+              >
                 {item.label}
               </Link>
             </li>
           ))}
         </ul>
-        <div className={styles.mobileLang}>
-          <button onClick={() => { changeLang('en'); toggleMenu(); }}>EN</button>
-          <button onClick={() => { changeLang('ru'); toggleMenu(); }}>RU</button>
-        </div>
       </div>
     </nav>
   );
